@@ -4,7 +4,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AuthorizationPageObject extends MainPageObject {
     private static final String
-    LOGIN_BUTTON = "xpath://*[text()='Keep track of this page and all changes to it.']",
+    LOGIN_BUTTON = "xpath://p[contains(text(), 'Keep')]",
     LOGIN_INPUT = "css:input[name='wpName']",
     PASSWORD_INPUT = "css:input[name='wpPassword']",
     SUBMIT_BUTTON = "xpath://*[@id='wpLoginAttempt']";
@@ -15,6 +15,7 @@ public class AuthorizationPageObject extends MainPageObject {
 
     public void clickAuthButton()  {
         this.waitForElementPresent(LOGIN_BUTTON, "Can't find Login button", 10);
+//        this.tryClickElementWithAttempts(LOGIN_BUTTON, "Can't click Login button", 4);
         this.waitForElementAndClick(LOGIN_BUTTON, "Can't click Login button", 10);
     }
 

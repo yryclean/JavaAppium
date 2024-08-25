@@ -90,7 +90,7 @@ public class Platform
         clientHints.put("platform", "Android");
         clientHints.put("mobile", true);
         mobileEmulation.put("clientHints", clientHints);
-        ChromeOptions chromeOptions = new ChromeOptions(); chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation); WebDriver driver = new ChromeDriver(chromeOptions);
+        ChromeOptions chromeOptions = new ChromeOptions(); chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
         return chromeOptions;
     }
 

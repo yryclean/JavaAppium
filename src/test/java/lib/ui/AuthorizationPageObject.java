@@ -15,7 +15,6 @@ public class AuthorizationPageObject extends MainPageObject {
 
     public void clickAuthButton()  {
         this.waitForElementPresent(LOGIN_BUTTON, "Can't find Login button", 10);
-//        this.tryClickElementWithAttempts(LOGIN_BUTTON, "Can't click Login button", 4);
         this.waitForElementAndClick(LOGIN_BUTTON, "Can't click Login button", 10);
     }
 

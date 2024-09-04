@@ -1,5 +1,6 @@
 package lib.ui;
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class SearchPageObject extends MainPageObject {
@@ -30,48 +31,51 @@ abstract public class SearchPageObject extends MainPageObject {
 
 
     /*TEMPLATES METHODS */
-
+    @Step("Initializing search input bar")
     public void initSearchInput()
 
     {
         this.waitForElementAndClick((SEARCH_INIT_ELEMENT), "Can't find and click search element", 10);
         this.waitForElementPresent((SEARCH_INIT_ELEMENT), "Can't find search element", 10);
     }
-
+    @Step("Waiting for cancel search button to appear")
     public void waitForCancelButtonToAppear()
     {
         this.waitForElementPresent((SEARCH_CANCEL_BUTTON),"Can't find Cancel button", 10);
 
     }
-
+    @Step("Waiting for cancel search button to disappear")
     public void waitForCancelButtonToDisappear()
     {
         this.waitForElementNotPresent((SEARCH_CANCEL_BUTTON),"Cancel button is not hidden", 10);
 
     }
-
+    @Step("Clicking on the cancel search button")
     public void clickCancelSearch()
     {
         waitForElementAndClick((SEARCH_CANCEL_BUTTON),"Can't find and click search cancel button", 10);
     }
 
-
+    @Step("Typing '{search_line}' into the search line")
     public String typeSearchLine(String search_line)
     {
         this.waitForElementAndSendKeys((SEARCH_INPUT), search_line,10);
 
         return search_line;
     }
+    @Step("Waiting for search results with substring '{substring}'")
     public void waitForSearchResult(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
         this.waitForElementPresent((search_result_xpath), "Can't find search result with substring " + substring, 10);
     }
+    @Step("Waiting for search results and clicking on the article by substring '{substring}' in article title")
     public void clickByArticleWithSubstring(String substring)
     {
         String search_result_xpath = getResultSearchElement(substring);
         this.waitForElementAndClick((search_result_xpath), "Can't find and click search result with substring " + substring, 10);
     }
+    @Step("Getting amount of found articles")
     public int getAmountOfFoundArticles() {
         this.waitForElementPresent(
                 (SEARCH_RESULT_ARTICLES),
@@ -80,28 +84,34 @@ abstract public class SearchPageObject extends MainPageObject {
         );
         return this.getAmountOfElements((SEARCH_RESULT_ARTICLES));
     }
+    @Step("Waiting for an empty search result")
     public void waitForEmptySearch()
     {
         this.waitForElementPresent((SEARCH_EMPTY_RESULT), "Can't find empty search", 10);
     }
+    @Step("Confirming there's no search results")
     public void assertEmptySearchResult()
     {
         this.assertElementNotFound((SEARCH_EMPTY_RESULT), "No search results are expected", 10);
     }
+
     public void waitForSearchInput()
     {
         this.waitForElementPresent((SEARCH_INPUT_PAGE), "Can't find empty search field", 10);
     }
+
     public void assertEmptySearchInput()
     {
         this.waitForElementPresent((SEARCH_INPUT_PAGE), "Search field is expected to be displayed", 10);
 
     }
+    @Step("Waiting for search results by title with substring '{substring}'")
     public void waitForSearchResultTitle(String substring)
     {
         String search_result_xpath = getResultSearchElementTitle(substring);
         this.waitForElementPresent((search_result_xpath), "Can't find search result with substring " + substring, 10);
     }
+    @Step("Waiting for search results by title '{title}'and description '{description}'")
     public void waitForElementByTitleAndDescription(String title, String description)
     {
         this.waitForSearchResultTitle(title);

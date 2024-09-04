@@ -1,5 +1,6 @@
 package lib.ui;
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -33,6 +34,8 @@ abstract public class MySavedListsPageObject extends MainPageObject {
     {
         super(driver);
     }
+
+    @Step("Opening folder by name '{name_of_folder}'")
     public void openFolderByName(String name_of_folder)
     {   String folder_name_xpath = getFolderByXpathName(name_of_folder);
         this.waitForElementAndClick(
@@ -41,6 +44,7 @@ abstract public class MySavedListsPageObject extends MainPageObject {
                 5
         );
     }
+    @Step("Waiting for article with title '{article_title}' to appear")
     public void waitForArticleToAppearByTitle(String article_title)
     {
         String article_xpath = getFolderByXpathName(article_title);
@@ -50,6 +54,8 @@ abstract public class MySavedListsPageObject extends MainPageObject {
                 10
         );
     }
+
+    @Step("Waiting for article with title '{article_title}' to disappear")
     public void waitForArticleTitleToDisappear(String article_title)
     {
         String article_xpath = getFolderByXpathName(article_title);
@@ -59,6 +65,8 @@ abstract public class MySavedListsPageObject extends MainPageObject {
                 10
         );
     }
+
+    @Step("Swipe on article with title '{article_title}' to delete")
     public void swipeArticleToDelete(String article_title) {
         if (Platform.getInstance().isAndroid()) {
             this.waitForArticleToAppearByTitle(article_title);
@@ -90,6 +98,7 @@ abstract public class MySavedListsPageObject extends MainPageObject {
 
     }
 
+    @Step("Opening folder by article title '{article_title}'")
     public void openArticleFromFolder(String article_title)
     {
         String article_xpath = getTitleByXpathName(article_title);
@@ -99,11 +108,14 @@ abstract public class MySavedListsPageObject extends MainPageObject {
                 5
         );
     }
+
+    @Step("Closing sync pop-up")
     public void closeSyncPopUp()
     {
         this.waitForElementAndClick(CLOSE_SYNC_POPUP, "Can't find close pop-up button", 10);
     }
 
+    @Step("Opening saved article with title '{article_title}'")
     public void openSavedArticle(String article_title) {
         String article_xpath = getTitleByXpathName(article_title);
         this.waitForElementAndClick(
@@ -112,6 +124,4 @@ abstract public class MySavedListsPageObject extends MainPageObject {
                 5
         );
     }
-
-
 }

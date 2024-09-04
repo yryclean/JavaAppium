@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -9,7 +10,7 @@ abstract public class NavigationUI extends MainPageObject {
     protected static String
            SAVED_LISTING,
             OPEN_NAVIGATION;
-
+@Step("Opening navigation menu on Web. Method openNavigation() does nothing for platform iOS and Android")
     public void openNavigation() {
         if (Platform.getInstance().isWeb()) {
             this.waitForElementAndClick(OPEN_NAVIGATION, "Can't open navigation menu", 10);
@@ -22,6 +23,7 @@ abstract public class NavigationUI extends MainPageObject {
     {
         super(driver);
     }
+    @Step("Clicking on saved lists button")
         public void clickSavedList() {
             if (Platform.getInstance().isWeb()) {
                 this.tryClickElementWithAttempts(

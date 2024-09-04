@@ -1,6 +1,7 @@
 package lib.ui;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -25,17 +26,21 @@ abstract public class ArticlePageObject extends MainPageObject {
         super(driver);
     }
 
+    @Step("Waiting for title on article title screen")
     public WebElement waitForTitleElement() {
 
         return this.waitForElementPresent((TITLE), "Can't find title", 5);
     }
 
+
     private static String getArticleTitleByXpathName(String title) {
         return TITLE_BY_TPL.replace("{TITLE}", title);
     }
 
+    @Step("Getting article title")
     public String getArticleTitle() {
         WebElement title_element = waitForTitleElement();
+        screenshot(this.takeScreenshot("article_title"));
         if (Platform.getInstance().isAndroid()) {
             return title_element.getText();
         } else if (Platform.getInstance().isIOS()) {
@@ -44,7 +49,7 @@ abstract public class ArticlePageObject extends MainPageObject {
             return title_element.getText();
         }
     }
-
+    @Step("Scrolling to the end of the article screen")
     public void scrollTo() {
         if (Platform.getInstance().isAndroid()) {
 
@@ -56,7 +61,7 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
 
     }
-
+    @Step("Adding article to saved list")
     public void addArticleToMyList(String name_of_folder) {
         if (Platform.getInstance().isAndroid()) {
             this.waitForElementAndClick(
@@ -121,11 +126,12 @@ abstract public class ArticlePageObject extends MainPageObject {
             this.removeArticleFromSaved();
         }
     }
-
+    @Step("Saving article for later")
     public void addArticleToSaved() {
         this.waitForElementAndClick(SAVE_BUTTON, "Can't find save button", 10);
     }
 
+    @Step("Closing article screen, Method closeArticle() does nothing for platform Web")
     public void closeArticle() {
         if (Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
         this.waitForElementAndClick(
@@ -138,7 +144,7 @@ abstract public class ArticlePageObject extends MainPageObject {
     }
 }
 
-
+    @Step("Looking for read more section at the end of the article screen")
     public void findArticleReadMore() {
         this.waitForElementPresent(
                 (READ_MORE_ARTICLE_SECTION),
@@ -146,7 +152,7 @@ abstract public class ArticlePageObject extends MainPageObject {
                 15
         );
     }
-
+    @Step("Adding article to existing list")
     public void addArticleToExistingList() {
         if (Platform.getInstance().isAndroid()) {
             this.waitForElementAndClick(
@@ -174,11 +180,13 @@ abstract public class ArticlePageObject extends MainPageObject {
         }
 
     }
+
     public void assertTitle()
     {
         this.waitForElementPresent((TITLE), "Can't find article title", 0);
     }
 
+    @Step("Waiting for article title '{article_title}'")
     public void waitForArticleTitle(String article_title) {
         String article_xpath = getArticleTitleByXpathName(article_title);
         this.waitForElementPresent(
@@ -187,12 +195,14 @@ abstract public class ArticlePageObject extends MainPageObject {
                 10
         );
     }
+    @Step("Removing article form saved list")
     public void removeArticleFromSaved() {
         if (this.isElementPresent(REMOVE_FROM_LIST)) {
             this.waitForElementAndClick(REMOVE_FROM_LIST, "Can't remove article from saved list", 10);
             this.waitForElementPresent(ADD_TO_LIST, "Can't find find and add article to saved list", 10);
         }
     }
+    @Step("Waiting for note section under '{article title}'")
     public void waitForArticleNote(String article_title) {
         String article_note_xpath = getArticleNoteByXpathName(article_title);
         this.waitForElementPresent(
